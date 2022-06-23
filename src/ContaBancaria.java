@@ -1,26 +1,16 @@
 public abstract class ContaBancaria {
-    private int numConta;
-    private double saldo;
 
-    public abstract void sacar(double valor);
-    public abstract void depositar(double valor);
-    public abstract String mostrarDados();
+    private int numeroConta;
+    private double saldo = 0;
+    private static int qtdContas = 0;
 
-    public void transferir(double valor, ContaBancaria conta){
-        conta.depositar(valor);
-    };
-
-    public ContaBancaria(int numConta, double saldo) {
-        this.numConta = numConta;
-        this.saldo = saldo;
+    public ContaBancaria() {
+        qtdContas++;
+        this.numeroConta = qtdContas;
     }
 
-    public int getNumConta() {
-        return numConta;
-    }
-
-    public void setNumConta(int numConta) {
-        this.numConta = numConta;
+    public int getNumeroConta() {
+        return numeroConta;
     }
 
     public double getSaldo() {
@@ -31,11 +21,15 @@ public abstract class ContaBancaria {
         this.saldo = saldo;
     }
 
-    @Override
-    public String toString() {
-        return "ContaBancaria{" +
-                "numConta=" + numConta +
-                ", saldo=" + saldo +
-                '}';
+    public abstract void sacar(double valor);
+
+    public abstract void depositar(double valor);
+
+    public abstract String mostrarDados();
+
+    public void transferir(ContaBancaria conta, double valor) {
+        this.sacar(valor);
+        conta.depositar(valor);
     }
+
 }

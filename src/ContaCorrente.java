@@ -1,49 +1,49 @@
-public class ContaCorrente extends ContaBancaria{
+public class ContaCorrente extends ContaBancaria {
+    private double taxaDeOperacao;
+    private double limite;
+    private int qtdOperacao = 0;
 
-    private double taxaDeOperacao = 20, limite = 500;
-
-    public ContaCorrente(int numConta, double saldo) {
-        super(numConta, saldo);
-    }
-
-    @Override
-    public void sacar(double valor) {
-        super.setSaldo(super.getSaldo() - valor);
-    }
-
-    @Override
-    public void depositar(double valor) {
-        super.setSaldo(super.getSaldo() + valor);
-    }
-
-    @Override
-    public String mostrarDados() {
-        return toString();
-    }
-
-
-
-    public double getTaxaDeOperacao() {
-        return taxaDeOperacao;
-    }
-
-    public void setTaxaDeOperacao(double taxaDeOperacao) {
+    public ContaCorrente(double taxaDeOperacao, double limite) {
+        super();
         this.taxaDeOperacao = taxaDeOperacao;
-    }
-
-    public double getLimite() {
-        return limite;
-    }
-
-    public void setLimite(double limite) {
         this.limite = limite;
     }
 
     @Override
-    public String toString() {
-        return super.toString() + " --- ContaCorrente{" +
-                "taxaDeOperacao=" + taxaDeOperacao +
-                ", limite=" + limite +
-                '}';
+    public void sacar(double valor) {
+        if (valor != 0) {
+            if (this.getSaldo() + this.limite >= valor) {
+                this.setSaldo(this.getSaldo() - valor);
+                this.qtdOperacao++;
+                if (this.qtdOperacao > 3) {
+                    this.setSaldo(this.getSaldo() - this.taxaDeOperacao);
+                }
+            } else {
+                throw new SaldoInsufucienteException();
+            }
+        } else {
+            throw new OperacaoZeroException("sacar");
+        }
+    }
+
+    @Override
+    public void depositar(double valor) {
+        if (valor != 0) {
+            this.setSaldo(this.getSaldo() + valor);
+            this.qtdOperacao++;
+            if (this.qtdOperacao > 3) {
+                this.setSaldo(this.getSaldo() - this.taxaDeOperacao);
+            }
+        } else {
+            throw new OperacaoZeroException("sacar");
+        }
+    }
+
+    @Override
+    public String mostrarDados() {
+        return "Número: " + this.getNumeroConta() +
+                "\nSaldo: R$ " + this.getSaldo() +
+                "\nTaxa de Operação: R$ " + this.taxaDeOperacao +
+                "\nLimite: " + this.limite;
     }
 }
