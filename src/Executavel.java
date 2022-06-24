@@ -1,5 +1,12 @@
 import java.util.Scanner;
 
+/*
+* Programa que cadastra vários bancos, sendo que cada banco pode possuir várias contas bancárias de tipos diferentes ...
+* @author: João Henrique Meireles da Silva
+* @version: 0.1
+* @since: 0.1
+*/
+
 public class Executavel {
     private static Scanner sc = new Scanner(System.in);
     private static Banco banco = new Banco();

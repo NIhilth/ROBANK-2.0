@@ -1,6 +1,11 @@
 import java.util.ArrayList;
 
-public class Banco {
+/*
+* Modela um objeto Banco que pode possuir várias contas bancárias.
+*
+*/
+
+public class Banco extends Object {
     private ArrayList<ContaBancaria> contas = new ArrayList<>();
 
     public void inserir(ContaBancaria conta) {

@@ -1,4 +1,4 @@
-public abstract class ContaBancaria {
+public abstract class ContaBancaria implements Transacoes{
 
     private int numeroConta;
     private double saldo = 0;
@@ -21,12 +21,15 @@ public abstract class ContaBancaria {
         this.saldo = saldo;
     }
 
-    public abstract void sacar(double valor);
-
-    public abstract void depositar(double valor);
-
     public abstract String mostrarDados();
 
+    /*
+    * Transfere de uma conta bancária para outra
+    * @since: 0.1
+    * @param: conta
+    * @param: valor
+    *
+    * */
     public void transferir(ContaBancaria conta, double valor) {
         this.sacar(valor);
         conta.depositar(valor);
